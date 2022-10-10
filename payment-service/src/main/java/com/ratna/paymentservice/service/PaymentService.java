@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.ratna.paymentservice.entity.Payment;
 import com.ratna.paymentservice.repository.PaymentRepository;
@@ -25,4 +26,7 @@ public class PaymentService {
 		return new Random().nextBoolean() ? "SUCCESS" : "FAILED";
 	}
 
+	public Payment findPaymentDetailsWithOrderId(@PathVariable Integer orderId) {
+		return paymentRepository.findByOrderId(orderId);
+	}
 }
