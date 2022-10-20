@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
 
 @Configuration
 public class RoutlocatorConfiguration extends SpringCloudCircuitBreakerFilterFactory {
-	public RoutlocatorConfiguration(ReactiveCircuitBreakerFactory reactiveCircuitBreakerFactory,
+	public RoutlocatorConfiguration(ReactiveCircuitBreakerFactory<?, ?> reactiveCircuitBreakerFactory,
 			ObjectProvider<DispatcherHandler> dispatcherHandlerProvider) {
 		super(reactiveCircuitBreakerFactory, dispatcherHandlerProvider);
 	}

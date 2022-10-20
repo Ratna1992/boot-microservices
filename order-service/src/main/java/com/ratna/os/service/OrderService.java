@@ -1,8 +1,6 @@
 package com.ratna.os.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,8 +18,7 @@ public class OrderService {
 	@Autowired
 	RestTemplate template;
 
-	@Value("${spring.payment.url}")
-	private String paymentURL;
+	private String paymentURL = "http://payment-service/payment/doPayment";
 
 	public TransactionResponse saveOrder(TransactionRequest transactionRequest) {
 		String message = "";
