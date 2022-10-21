@@ -1,6 +1,9 @@
 package com.ratna.os.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,14 +14,17 @@ import com.ratna.os.pojo.TransactionResponse;
 import com.ratna.os.repository.OrderRepository;
 
 @Service
+@RefreshScope
 public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
+	@Lazy
 	RestTemplate template;
 
-	private String paymentURL = "http://payment-service/payment/doPayment";
+	@Value("$(microservice.payment-service.endpoints.endpoint.uri")
+	private String paymentURL;
 
 	public TransactionResponse saveOrder(TransactionRequest transactionRequest) {
 		String message = "";
