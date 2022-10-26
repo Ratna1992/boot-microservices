@@ -4,9 +4,6 @@ spring:
   h2:
     console:
       enabled: true
-  cloud:
-    config:
-      uri:
-        - 'http://localhost:9093'
+  
 server:
   port: 9090
