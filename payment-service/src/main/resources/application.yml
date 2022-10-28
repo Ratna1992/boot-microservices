@@ -10,3 +10,6 @@ spring:
         - http://localhost:9093
 server:
   port: 9091
+logging:
+    file:
+        path: E:/logs/microservice.log 

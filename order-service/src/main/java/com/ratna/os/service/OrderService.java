@@ -1,5 +1,7 @@
 package com.ratna.os.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -17,6 +19,8 @@ import com.ratna.os.repository.OrderRepository;
 @RefreshScope
 public class OrderService {
 
+	private Logger LOG = LoggerFactory.getLogger(OrderService.class);
+
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
@@ -27,6 +31,7 @@ public class OrderService {
 	private String paymentURL;
 
 	public TransactionResponse saveOrder(TransactionRequest transactionRequest) {
+		LOG.info("Order Service request : {}", transactionRequest);
 		String message = "";
 		TransactionResponse transactionResponse = new TransactionResponse();
 		Order orderRequest = transactionRequest.getOrder();
@@ -35,12 +40,13 @@ public class OrderService {
 		payment.setAmt(orderRequest.getPrice());
 		payment.setOrderId(order.getId());
 		Payment postForEntity = template.postForObject(paymentURL, payment, Payment.class);
+		LOG.info("Payment Rest Call from Order Service : {}", postForEntity);
 		message = postForEntity.getPaymentStatus().equalsIgnoreCase("SUCCESS") ? "Successful transaction"
 				: "failed transction";
 		transactionResponse.setOrder(order);
 		transactionResponse.setPayment(postForEntity);
 		transactionResponse.setMessage(message);
-
+		LOG.info("Successfully executed  from Order Service : {}", transactionResponse);
 		return transactionResponse;
 	}
 }
