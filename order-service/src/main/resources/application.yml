@@ -10,4 +10,4 @@ server:
 
 logging:
     file:
-        path: E:/logs/microservice.log 
+        path: E:/logs/microservice 
